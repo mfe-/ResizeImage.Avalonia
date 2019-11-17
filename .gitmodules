@@ -1,0 +1,3 @@
+[submodule "ImageCore"]
+	path = ImageCore
+	url = https://github.com/mfe-/Get.the.solution.ImageCore.git
