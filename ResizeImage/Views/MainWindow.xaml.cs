@@ -17,6 +17,18 @@ namespace ResizeImage.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            this.DataContextChanged += MainWindow_DataContextChanged;
         }
+
+        private void MainWindow_DataContextChanged(object sender, System.EventArgs e)
+        {
+            if (UserContent == null)
+            {
+                UserContent = this.FindControl<ContentControl>("userContentControl");
+                UserContent.Content = new ResizeControl();
+            }
+
+        }
+        public ContentControl UserContent { get; set; }
     }
 }

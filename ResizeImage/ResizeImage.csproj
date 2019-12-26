@@ -14,9 +14,42 @@
     <AvaloniaResource Include="Assets\*" />
   </ItemGroup>
   <ItemGroup>
+    <AvaloniaResource Remove="Views\AboutControl.xaml" />
+    <AvaloniaResource Remove="Views\HelpControl.xaml" />
+    <AvaloniaResource Remove="Views\ResizeControl.xaml" />
+    <AvaloniaResource Remove="Views\SettingsControl.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Views\AboutControl.xaml" />
+    <None Remove="Views\HelpControl.xaml" />
+    <None Remove="Views\ResizeControl.xaml" />
+    <None Remove="Views\SettingsControl.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.8.0" />
     <PackageReference Include="Avalonia.Desktop" Version="0.8.0" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.8.0" />
+    <PackageReference Include="Unity" Version="5.11.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ResizeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\AboutControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\HelpControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\SettingsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ImageCore\Image.Manipulation.Contract\Get.the.solution.Image.Manipulation.Contract.csproj" />

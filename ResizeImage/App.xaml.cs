@@ -1,13 +1,72 @@
 ﻿using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Get.the.solution.Image.Contract;
+using Get.the.solution.Image.Manipulation.Contract;
+using Get.the.solution.Image.Manipulation.ResizeService;
+using Get.the.solution.Image.Manipulation.ViewModel;
+using ResizeImage.Service;
+using ResizeImage.Views;
+using System;
+using System.Collections.Generic;
+using Unity;
 
 namespace ResizeImage
 {
     public class App : Application
     {
+        private ApplicationService _applicationService;
+        private ILoggerService _loggerService;
+        private UnityContainer _unityContainer;
+        public Window Window { get; protected set; }
+        public IUnityContainer Container => _unityContainer;
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+        public override void RegisterServices()
+        {
+            base.RegisterServices();
+
+            try
+            {
+                _unityContainer = new UnityContainer();
+                _applicationService = new ApplicationService();
+                _loggerService = new LoggerService();
+
+                Dictionary<Type, Type> pageDictionary = new Dictionary<Type, Type>()
+                {
+                     { typeof(AboutPageViewModel),typeof(AboutControl) }
+                    ,{ typeof(HelpPageViewModel),typeof(HelpControl) }
+                    ,{ typeof(MainPageViewModel),typeof(ResizeControl) }
+                    ,{ typeof(ResizePageViewModel),typeof(ResizeControl) }
+                    ,{ typeof(ImageViewPageViewModel),typeof(ResizeControl) }
+                    ,{ typeof(SettingsPageViewModel),typeof(SettingsControl) }
+                };
+
+                _unityContainer.RegisterInstance<ILoggerService>(_loggerService);
+                _unityContainer.RegisterInstance<IApplicationService>(_applicationService);
+
+                NavigationService navigationService = new NavigationService(Container, this, pageDictionary);
+                _unityContainer.RegisterInstance<INavigation>(navigationService);
+
+                _unityContainer.RegisterSingleton<IResourceService, ResourceService>();
+                _unityContainer.RegisterSingleton<IImageFileService, ImageFileService>();
+                _unityContainer.RegisterSingleton<ILocalSettings, LocalSettingsService>();
+                _unityContainer.RegisterSingleton<IResizeService, ResizeSerivceSix>();
+                _unityContainer.RegisterSingleton<IDragDropService, DragDropService>();
+                _unityContainer.RegisterSingleton<IShareService, ShareService>();
+                _unityContainer.RegisterSingleton<IPageDialogService, PageDialogService>();
+                _unityContainer.RegisterSingleton<IProgressBarDialogService, ProgressBarDialogService>();
+                _unityContainer.RegisterSingleton<IFileSystemPermissionDialogService, FileSystemPermissionDialogService>();
+                TimeSpan timeSpan = TimeSpan.MinValue;
+                _unityContainer.RegisterInstance<TimeSpan>(timeSpan);
+
+            }
+            catch (Exception e)
+            {
+                _loggerService?.LogException(nameof(RegisterServices), e);
+            }
         }
     }
 }
