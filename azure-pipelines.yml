@@ -21,6 +21,9 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
+- task: NuGetCommand@2
+  inputs:
+    command: 'restore'
     restoreSolution: '$(solution)'
     feedsToUse: 'config'
     nugetConfigPath: '$(Build.WorkingDirectory)/ImageCore/NuGet.config'
