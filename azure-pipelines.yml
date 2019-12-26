@@ -20,6 +20,12 @@ steps:
 - checkout: self
   submodules: true
 
+- task: UseDotNet@2 
+  displayName: ".NET Core 3.1.x"
+  inputs:
+    version: '3.1.x'
+    packageType: sdk
+
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
