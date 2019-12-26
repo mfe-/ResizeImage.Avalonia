@@ -23,7 +23,7 @@ steps:
     command: 'restore'
     restoreSolution: '$(solution)'
     feedsToUse: 'config'
-    nugetConfigPath: '$(Build.WorkingDirectory)/ImageCore/NuGet.config'
+    nugetConfigPath: '/ImageCore/NuGet.config'
 
 - task: VSBuild@1
   inputs:
