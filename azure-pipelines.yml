@@ -21,6 +21,7 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
+    nugetConfigPath: '$(Build.WorkingDirectory)/ImageCore/NuGet.config'
 
 - task: VSBuild@1
   inputs:
