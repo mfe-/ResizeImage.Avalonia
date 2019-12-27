@@ -26,7 +26,7 @@ steps:
     version: '3.1.x'
     packageType: sdk
 
-- script: dotnet restore --configfile  ImageCore\NuGet.config
+- script: dotnet restore --configfile  .\ImageCore\NuGet.config
   displayName: 'dotnet restore'
 
 - script: dotnet build --configuration $(buildConfiguration)
