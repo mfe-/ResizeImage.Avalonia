@@ -39,3 +39,9 @@ steps:
     publishWebProjects: false
     arguments: 'ResizeImage\ResizeImage.csproj --framework netcoreapp3.0 -r linux-x64 --configuration $(BuildConfiguration) /p:PublishSingleFile=true --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: true
+
+- task: PublishBuildArtifacts@1
+  displayName: "Upload Artifacts"
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+    artifactName: 'ResizeImagelinux-x64' 
