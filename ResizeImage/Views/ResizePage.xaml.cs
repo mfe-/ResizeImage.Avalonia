@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace ResizeImage.Views
 {
-    public class SettingsControl : UserControl
+    public class ResizePage : UserControl
     {
-        public SettingsControl()
+        public ResizePage()
         {
             this.InitializeComponent();
         }

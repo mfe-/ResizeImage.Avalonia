@@ -36,12 +36,12 @@ namespace ResizeImage
 
                 Dictionary<Type, Type> pageDictionary = new Dictionary<Type, Type>()
                 {
-                     { typeof(AboutPageViewModel),typeof(AboutControl) }
-                    ,{ typeof(HelpPageViewModel),typeof(HelpControl) }
-                    ,{ typeof(MainPageViewModel),typeof(ResizeControl) }
-                    ,{ typeof(ResizePageViewModel),typeof(ResizeControl) }
-                    ,{ typeof(ImageViewPageViewModel),typeof(ResizeControl) }
-                    ,{ typeof(SettingsPageViewModel),typeof(SettingsControl) }
+                     { typeof(AboutPageViewModel),typeof(AboutPage) }
+                    ,{ typeof(HelpPageViewModel),typeof(HelpPage) }
+                    ,{ typeof(MainPageViewModel),typeof(ResizePage) }
+                    ,{ typeof(ResizePageViewModel),typeof(ResizePage) }
+                    ,{ typeof(ImageViewPageViewModel),typeof(ResizePage) }
+                    ,{ typeof(SettingsPageViewModel),typeof(SettingsPage) }
                 };
 
                 _unityContainer.RegisterInstance<ILoggerService>(_loggerService);

@@ -25,7 +25,7 @@ namespace ResizeImage.Views
             if (UserContent == null)
             {
                 UserContent = this.FindControl<ContentControl>("userContentControl");
-                UserContent.Content = new ResizeControl();
+                UserContent.Content = new ResizePage();
             }
 
         }

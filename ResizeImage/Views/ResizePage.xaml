@@ -1,0 +1,269 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:loc="clr-namespace:Get.the.solution.Image.Manipulation.Localization;assembly=Get.the.solution.Image.Manipulation.Localization"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ResizeImage.Views.ResizeControl">
+    <UserControl.Content>
+      <DockPanel>
+        <TextBlock Name="ResizeText" DockPanel.Dock="Top" 
+                   Text="{x:Static loc:AppResources.Resize}" TextWrapping="Wrap" />
+        <Button x:Name="ButtonFilePicker" DockPanel.Dock="Top" 
+                Content="{x:Static loc:AppResources.SelectImage}"
+               Command="{Binding Path=OpenFilePickerCommand}">
+        </Button>
+        <TextBlock DockPanel.Dock="Top" Text="{x:Static loc:AppResources.SelectSize}" />
+        <RadioButton 
+                 DockPanel.Dock="Top"
+                 GroupName="A"
+                 VerticalContentAlignment="Center"
+                 VerticalAlignment="Center"
+                 IsChecked="{Binding Path=SizeSmallChecked,Mode=TwoWay}"
+                 Content="{x:Static loc:AppResources.SizeSmall}">
+        </RadioButton>
+        <RadioButton DockPanel.Dock="Top" 
+                     GroupName="A"
+                             VerticalContentAlignment="Center"
+                             VerticalAlignment="Center"
+                             IsChecked="{Binding Path=SizeMediumChecked,Mode=TwoWay}"
+                     Content="{x:Static loc:AppResources.SizeMedium}"  />
+
+        <RadioButton DockPanel.Dock="Top" GroupName="A"
+                 VerticalContentAlignment="Center"
+                 VerticalAlignment="Center"
+                 Padding="5 0 0 0" HorizontalContentAlignment="Stretch"
+             IsChecked="{Binding Path=SizeCustomChecked,Mode=TwoWay}">
+          <RadioButton.Content>
+            <DockPanel>
+              
+              <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" 
+                         Text="{x:Static loc:AppResources.SizeCustomWidth}" />
+              <!--common:OnFocus.SelectAll="True" InputScope="Number" MaxLength="5"-->
+              <TextBox Margin="2" DockPanel.Dock="Left" Text="{Binding Width,Mode=TwoWay}"
+                        Width="70"  
+                       VerticalAlignment="Center" HorizontalAlignment="Left"/>
+              <TextBlock DockPanel.Dock="Left" Text="{x:Static loc:AppResources.SizeCustomBy}"
+                         VerticalAlignment="Center" HorizontalAlignment="Left"/>
+              <!--common:OnFocus.SelectAll="True" InputScope="Number" MaxLength="5"-->
+              <TextBox Margin="2" DockPanel.Dock="Left" Text="{Binding Height,Mode=TwoWay}"
+                        Width="70"  
+                       VerticalAlignment="Center" HorizontalAlignment="Left" />
+              <TextBlock DockPanel.Dock="Left" Text="{x:Static loc:AppResources.SizeCustomHeight}"
+                         VerticalAlignment="Center" HorizontalAlignment="Left"  />
+            </DockPanel>
+          </RadioButton.Content>
+        </RadioButton>
+
+        <RadioButton DockPanel.Dock="Top" GroupName="A" Padding="5 0 0 0"
+                 VerticalContentAlignment="Center"
+                 VerticalAlignment="Center"
+             IsChecked="{Binding Path=SizePercentChecked,Mode=TwoWay}" >
+          <RadioButton.Content>
+            <DockPanel>
+              <TextBlock DockPanel.Dock="Left" Text="{x:Static loc:AppResources.SizePercentWidth}"
+                         VerticalAlignment="Center" />
+              <!--common:OnFocus.SelectAll="True" MaxLength="3" InputScope="Number"-->
+              <TextBox Margin="2" DockPanel.Dock="Left" Text="{Binding WidthPercent,Mode=TwoWay}"
+                        Width="70"  
+                       VerticalAlignment="Center" HorizontalAlignment="Left" />
+              <TextBlock DockPanel.Dock="Left" Text="{x:Static loc:AppResources.SizePercentBy}"
+                         HorizontalAlignment="Left" VerticalAlignment="Center"/>
+              <!--common:OnFocus.SelectAll="True" MaxLength="3" InputScope="Number"-->
+              <TextBox Margin="2" DockPanel.Dock="Left" Text="{Binding HeightPercent,Mode=TwoWay}"
+                        Width="70"  
+                       VerticalAlignment="Center" HorizontalAlignment="Left" />
+              <TextBlock DockPanel.Dock="Left" Text="{x:Static loc:AppResources.SizePercentHeight}"
+                         HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            </DockPanel>
+          </RadioButton.Content>
+        </RadioButton>
+
+        <CheckBox Name="CheckBoxCopyEnabled" DockPanel.Dock="Top" Content="{x:Static loc:AppResources.CopyEnabled}"
+          IsChecked="{Binding Path=OverwriteFiles,Mode=TwoWay}" IsEnabled="{Binding Path=CanOverwriteFiles}"
+          VerticalContentAlignment="Center"
+          VerticalAlignment="Center" />
+        <CheckBox Name="CheckBoxKeepAspectRatio" DockPanel.Dock="Top" Content="{x:Static loc:AppResources.KeepAspectRatio}"
+                IsChecked="{Binding Path=KeepAspectRatio,Mode=TwoWay}"
+                  Padding="5 0 0 0"
+                  VerticalContentAlignment="Center"
+                  VerticalAlignment="Center"  />
+
+        <DockPanel DockPanel.Dock="Top" Margin="0 5 0 0" >
+          <Grid DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto" />
+              <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Button Grid.Column="0" Content="{x:Static loc:AppResources.Save}" HorizontalAlignment="Right"
+            Command="{Binding Path=OkCommand}" >
+              <!--<Interactivity:Interaction.Behaviors>
+                <Core:DataTriggerBehavior Binding="{Binding Path=OverwriteFiles,UpdateSourceTrigger=PropertyChanged}" Value="True">
+                  <Core:ChangePropertyAction PropertyName="Visibility" Value="Visible" />
+                </Core:DataTriggerBehavior>
+                <Core:DataTriggerBehavior Binding="{Binding Path=OverwriteFiles,UpdateSourceTrigger=PropertyChanged}" Value="False">
+                  <Core:ChangePropertyAction PropertyName="Visibility" Value="Collapsed" />
+                </Core:DataTriggerBehavior>
+                <Core:DataTriggerBehavior Binding="{Binding Path=Resizing,UpdateSourceTrigger=PropertyChanged}" Value="True">
+                  <Core:ChangePropertyAction PropertyName="IsEnabled" Value="False" />
+                </Core:DataTriggerBehavior>
+                <Core:DataTriggerBehavior Binding="{Binding Path=Resizing,UpdateSourceTrigger=PropertyChanged}" Value="False">
+                  <Core:ChangePropertyAction PropertyName="IsEnabled" Value="True" />
+                </Core:DataTriggerBehavior>
+              </Interactivity:Interaction.Behaviors>-->
+            </Button>
+            <!--<ProgressRing Grid.Column="0" IsActive="True" HorizontalAlignment="Right">
+              <Interactivity:Interaction.Behaviors>
+                <Core:DataTriggerBehavior Binding="{Binding Path=Resizing,UpdateSourceTrigger=PropertyChanged}" Value="True">
+                  <Core:ChangePropertyAction PropertyName="Visibility" Value="Visible" />
+                </Core:DataTriggerBehavior>
+                <Core:DataTriggerBehavior Binding="{Binding Path=Resizing,UpdateSourceTrigger=PropertyChanged}" Value="False">
+                  <Core:ChangePropertyAction PropertyName="Visibility" Value="Collapsed" />
+                </Core:DataTriggerBehavior>
+              </Interactivity:Interaction.Behaviors>
+            </ProgressRing>-->
+            <Button Grid.Column="1" Content="{x:Static loc:AppResources.SaveAs}" HorizontalAlignment="Right"
+            Command="{Binding Path=OkCommand}">
+              <!--<Interactivity:Interaction.Behaviors>
+                <Core:DataTriggerBehavior Binding="{Binding Path=OverwriteFiles,UpdateSourceTrigger=PropertyChanged}" Value="False">
+                  <Core:ChangePropertyAction PropertyName="Visibility" Value="Visible" />
+                </Core:DataTriggerBehavior>
+                <Core:DataTriggerBehavior Binding="{Binding Path=OverwriteFiles,UpdateSourceTrigger=PropertyChanged}" Value="True">
+                  <Core:ChangePropertyAction PropertyName="Visibility" Value="Collapsed" />
+                </Core:DataTriggerBehavior>
+                <Core:DataTriggerBehavior Binding="{Binding Path=Resizing,UpdateSourceTrigger=PropertyChanged}" Value="True">
+                  <Core:ChangePropertyAction PropertyName="IsEnabled" Value="False" />
+                </Core:DataTriggerBehavior>
+                <Core:DataTriggerBehavior Binding="{Binding Path=Resizing,UpdateSourceTrigger=PropertyChanged}" Value="False">
+                  <Core:ChangePropertyAction PropertyName="IsEnabled" Value="True" />
+                </Core:DataTriggerBehavior>
+              </Interactivity:Interaction.Behaviors>-->
+            </Button>
+            <Button Grid.Column="2" Name="ShareButton" Content="{x:Static loc:AppResources.Share}"
+                    HorizontalAlignment="Right">
+              <!--<Interactivity:Interaction.Behaviors>
+                <Core:DataTriggerBehavior Binding="{Binding Path=SharingProcess,UpdateSourceTrigger=PropertyChanged}" Value="False">
+                  <Core:ChangePropertyAction PropertyName="IsEnabled" Value="True" />
+                </Core:DataTriggerBehavior>
+                <Core:DataTriggerBehavior Binding="{Binding Path=SharingProcess,UpdateSourceTrigger=PropertyChanged}" Value="True">
+                  <Core:ChangePropertyAction PropertyName="IsEnabled" Value="False" />
+                </Core:DataTriggerBehavior>
+                <Core:EventTriggerBehavior EventName="Tapped">
+                  <Core:ChangePropertyAction PropertyName="SharingProcess" Value="True" TargetObject="{Binding DataContext,ElementName=ShareButton}"  />
+                  <Core:InvokeCommandAction Command="{Binding ShareCommand}" />
+                </Core:EventTriggerBehavior>
+              </Interactivity:Interaction.Behaviors>-->
+            </Button>
+            <!--<ProgressRing Grid.Column="3" IsActive="True" HorizontalAlignment="Right">
+              <Interactivity:Interaction.Behaviors>
+                <Core:DataTriggerBehavior Binding="{Binding Path=SharingProcess,UpdateSourceTrigger=PropertyChanged}" Value="True">
+                  <Core:ChangePropertyAction PropertyName="Visibility" Value="Visible" />
+                </Core:DataTriggerBehavior>
+                <Core:DataTriggerBehavior Binding="{Binding Path=SharingProcess,UpdateSourceTrigger=PropertyChanged}" Value="False">
+                  <Core:ChangePropertyAction PropertyName="Visibility" Value="Collapsed" />
+                </Core:DataTriggerBehavior>
+              </Interactivity:Interaction.Behaviors>
+            </ProgressRing>-->
+            <Button Grid.Column="4" Name="CancelButtonGridOne" Content="{x:Static loc:AppResources.Cancel}" HorizontalAlignment="Right"
+            Command="{Binding Path=CancelCommand}" >
+              <!--<VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState x:Name="CancelToLong">
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="260" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="CancelButtonGridOne.(Grid.Row)" Value="1" />
+                                        <Setter Target="CancelButtonGridOne.(Grid.ColumnSpan)" Value="4" />
+                                        <Setter Target="CancelButtonGridOne.HorizontalAlignment" Value="Left" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>-->
+            </Button>
+            <Button Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Name="CancelButtonGridTwo"
+                    Content="{x:Static loc:AppResources.Cancel}"
+                    IsVisible="False" HorizontalAlignment="Left" Command="{Binding Path=CancelCommand}" />
+          </Grid>
+        </DockPanel>
+
+        <ListBox Name="listboxfiles"
+                      DockPanel.Dock="Top"
+                      Items="{Binding Path=ImageFiles}"
+                      SelectionMode="Single"
+                      SelectedItem="{Binding Path=SelectedFile,Mode=TwoWay}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding Path=Path}" />
+              <!--<Grid>
+                <Grid.ColumnDefinitions >
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition />
+                  <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" >
+                  <TextBlock x:Name="PathTextBlock"
+                         Text="{Binding Path=Path,Converter={StaticResource FilenamePathShorterConverter}}" />
+                  <TextBlock >
+                    <Run Text=" " />
+                    <Run Text="{Binding Path=Width}" />
+                    <Run Text="x" />
+                    <Run Text="{Binding Path=Height}" />
+                    <Run Text="->" />
+                    <Run Text="{Binding Path=NewWidth}" />
+                    <Run Text="x" />
+                    <Run Text="{Binding Path=NewHeight}" />
+                  </TextBlock>
+
+                </StackPanel>
+                <TextBlock Grid.Row="0" Grid.Column="1" Margin="10 0 0 0" >
+                  <TextBlock.Text>
+                    <Binding Converter="{StaticResource ResourceKey=ImagePropertiesToStringConverter}" />
+                  </TextBlock.Text>
+                </TextBlock>
+                <ToolTipService.ToolTip>
+                  <Grid>
+                    <Grid.RowDefinitions>
+                      <RowDefinition />
+                      <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" >
+                      <Run>
+                        <Run.Text>
+                          <Binding Path="Tag" Converter="{StaticResource ResourceKey=ImagePropertiesToStringConverter}" />
+                        </Run.Text>
+                      </Run>
+                      <Run Text=" " />
+                      <Run Text="{Binding Path=Name}" />
+                    </TextBlock>
+                    <Image Grid.Row="1" Source="{Binding Path=Tag,Converter={StaticResource ResourceKey=StoreFileToBitmapImageConverter}}" />
+                  </Grid>
+                </ToolTipService.ToolTip>
+              </Grid>-->
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+          <!--<Interactivity:Interaction.Behaviors>
+            <Core:DataTriggerBehavior Binding="{Binding Path=ShowOpenFilePicker,UpdateSourceTrigger=PropertyChanged}" Value="False">
+              <Core:ChangePropertyAction PropertyName="Visibility" Value="Visible" />
+            </Core:DataTriggerBehavior>
+            <Core:DataTriggerBehavior Binding="{Binding Path=ShowOpenFilePicker,UpdateSourceTrigger=PropertyChanged}" Value="True">
+              <Core:ChangePropertyAction PropertyName="Visibility" Value="Collapsed" />
+            </Core:DataTriggerBehavior>
+          </Interactivity:Interaction.Behaviors>-->
+        </ListBox>
+        
+      </DockPanel>
+  </UserControl.Content>
+
+</UserControl>

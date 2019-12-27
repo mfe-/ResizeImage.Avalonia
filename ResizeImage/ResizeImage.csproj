@@ -14,16 +14,16 @@
     <AvaloniaResource Include="Assets\*" />
   </ItemGroup>
   <ItemGroup>
-    <AvaloniaResource Remove="Views\AboutControl.xaml" />
-    <AvaloniaResource Remove="Views\HelpControl.xaml" />
-    <AvaloniaResource Remove="Views\ResizeControl.xaml" />
-    <AvaloniaResource Remove="Views\SettingsControl.xaml" />
+    <AvaloniaResource Remove="Views\AboutPage.xaml" />
+    <AvaloniaResource Remove="Views\HelpPage.xaml" />
+    <AvaloniaResource Remove="Views\ResizePage.xaml" />
+    <AvaloniaResource Remove="Views\SettingsPage.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Views\AboutControl.xaml" />
-    <None Remove="Views\HelpControl.xaml" />
-    <None Remove="Views\ResizeControl.xaml" />
-    <None Remove="Views\SettingsControl.xaml" />
+    <None Remove="Views\AboutPage.xaml" />
+    <None Remove="Views\HelpPage.xaml" />
+    <None Remove="Views\ResizePage.xaml" />
+    <None Remove="Views\SettingsPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.8.0" />
@@ -32,29 +32,44 @@
     <PackageReference Include="Unity" Version="5.11.2" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\ResizeControl.xaml">
+    <EmbeddedResource Include="Views\ResizePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\AboutControl.xaml">
+    <EmbeddedResource Include="Views\AboutPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\HelpControl.xaml">
+    <EmbeddedResource Include="Views\HelpPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\SettingsControl.xaml">
+    <EmbeddedResource Include="Views\SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ImageCore\Image.Manipulation.Contract\Get.the.solution.Image.Manipulation.Contract.csproj" />
+    <ProjectReference Include="..\ImageCore\Image.Manipulation.Localization\Get.the.solution.Image.Manipulation.Localization.csproj" />
     <ProjectReference Include="..\ImageCore\Image.Manipulation.ServiceBase\Get.the.solution.Image.Manipulation.ServiceBase.csproj" />
     <ProjectReference Include="..\ImageCore\Image.Manipulation.ViewModel\Get.the.solution.Image.Manipulation.ViewModel.csproj" />
     <ProjectReference Include="..\ImageCore\Image.ResizeService\Get.the.solution.Image.ResizeService.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\HelpPage.xaml.cs">
+      <DependentUpon>HelpPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ResizePage.xaml.cs">
+      <DependentUpon>ResizePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
