@@ -3,7 +3,6 @@ using Get.the.solution.Image.Manipulation.Contract;
 using ResizeImage.Views;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Unity;
 
 namespace ResizeImage.Service
@@ -24,7 +23,7 @@ namespace ResizeImage.Service
         {
             if (_userControl == null)
             {
-                _userControl = (_app?.MainWindow as MainWindow)?.UserContent;
+                _userControl = (_app?.Window as MainWindow)?.UserContent;
             }
             var pageType = _pageDictionary[pageToken];
             var page = _unityContainer.Resolve(pageType) as UserControl;
@@ -33,8 +32,8 @@ namespace ResizeImage.Service
 
             if (_userControl!=null)
             {
-                (_app.MainWindow as MainWindow).UserContent.Content = page;
-                (_app.MainWindow as MainWindow).UserContent.DataContext = vm;
+                (_app.Window as MainWindow).UserContent.Content = page;
+                (_app.Window as MainWindow).UserContent.DataContext = vm;
             }
 
             return true;

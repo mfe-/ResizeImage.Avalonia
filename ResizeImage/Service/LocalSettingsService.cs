@@ -3,6 +3,9 @@ using Get.the.solution.Image.Manipulation.ServiceBase;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace ResizeImage.Service
 {
@@ -11,10 +14,84 @@ namespace ResizeImage.Service
         public LocalSettingsService(ILoggerService loggerService) : base(loggerService)
         {
             AppSettings = new Dictionary<string, object>();
+            ReadConfigFile();
             EnabledImageViewer = Values?[nameof(EnabledImageViewer)] == null ? false : Boolean.Parse(Values[nameof(EnabledImageViewer)].ToString());
             EnabledOpenSingleFileAfterResize = Values?[nameof(EnabledOpenSingleFileAfterResize)] == null ? true : Boolean.Parse(Values[nameof(EnabledOpenSingleFileAfterResize)].ToString());
             EnableAddImageToGallery = Values?[nameof(EnableAddImageToGallery)] == null ? true : Boolean.Parse(Values[nameof(EnableAddImageToGallery)].ToString());
             ShowSuccessMessage = Values?[nameof(ShowSuccessMessage)] == null ? true : Boolean.Parse(Values[nameof(ShowSuccessMessage)].ToString());
+        }
+        public FileInfo ConfigFile { get; set; }
+        public void ReadConfigFile()
+        {
+            string executingApp = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
+            executingApp = executingApp.Replace("file:///", String.Empty);
+            ConfigFile = new FileInfo($"{executingApp}.ini");
+            if (ConfigFile.Exists)
+            {
+                string line;
+                using (StreamReader fileStream = new StreamReader(ConfigFile.FullName))
+                {
+                    while ((line = fileStream.ReadLine()) != null)
+                    {
+                        var keyValue = line.Split(":");
+                        string key = keyValue.FirstOrDefault();
+                        string value = keyValue.LastOrDefault();
+                        bool b;
+                        int i;
+                        if (Boolean.TryParse(value, out b))
+                        {
+                            AppSettings.Add(key, b);
+                        }
+                        else if (int.TryParse(value, out i))
+                        {
+                            AppSettings.Add(key, i);
+                        }
+                        else
+                        {
+                            AppSettings.Add(key, value);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                using (FileStream fileStream = new FileStream(ConfigFile.FullName,
+                    FileMode.CreateNew, FileAccess.Write)) ;
+            }
+        }
+        public void WriteConfig(string key, string settingsValue)
+        {
+            String content;
+            using (StreamReader fileStream = new StreamReader(ConfigFile.FullName))
+            {
+                content = fileStream.ReadToEnd();
+            }
+            String newConfigKeyValue = $"{Environment.NewLine}{key}:{settingsValue}";
+            if (!content.Contains(key))
+            {
+                StringBuilder stringBuilder = new StringBuilder(content);
+                stringBuilder.Append(newConfigKeyValue);
+                content = stringBuilder.ToString();
+            }
+            else
+            {
+                string tobeReplaced = String.Empty;
+                foreach (var line in content.Split(Environment.NewLine))
+                {
+                    if (line.StartsWith(key))
+                    {
+                        tobeReplaced = $"{Environment.NewLine}{line}";
+                        break;
+                    }
+                }
+                content = content.Replace(tobeReplaced, newConfigKeyValue);
+            }
+            using (StreamWriter fileStream = new StreamWriter(ConfigFile.FullName))
+            {
+                fileStream.Write(content);
+                fileStream.Flush();
+            }
+
         }
 
         protected IDictionary<string, object> AppSettings;
@@ -38,10 +115,13 @@ namespace ResizeImage.Service
             set
             {
                 String settingsValue = $"{value}";
-                AppSettings.TryAdd(key, settingsValue);
+                AppSettings[key] = value;
+
+                WriteConfig(key, settingsValue);
+
             }
         }
-        public IDictionary<string, object> _Values;
+
         public override IDictionary<string, object> Values => this;
 
         #region IDictionary<string, object>

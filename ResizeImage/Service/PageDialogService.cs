@@ -1,4 +1,6 @@
-﻿using Get.the.solution.Image.Manipulation.Contract;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Get.the.solution.Image.Manipulation.Contract;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +12,26 @@ namespace ResizeImage.Service
     {
         public Task ShowAsync(string content)
         {
-            throw new NotImplementedException();
+            Window window = new Window();
+
+            StackPanel stackPanel = new StackPanel();
+            
+            TextBlock textBlock = new TextBlock();
+            textBlock.Text = content;
+
+            Button buttonOk = new Button();
+            buttonOk.Content = "Ok";
+            buttonOk.Click += (sender, e) => window.Close();
+
+            stackPanel.Children.Add(textBlock);
+            stackPanel.Children.Add(buttonOk);
+
+            window.Content = stackPanel;
+
+
+            Application.Current.MainWindow.ShowDialog(window);
+
+            return Task.CompletedTask;
         }
 
         public Task<bool> ShowConfirmationAsync(string content, string yesButton, string noButton)

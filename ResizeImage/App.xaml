@@ -3,7 +3,7 @@
              xmlns:local="clr-namespace:ResizeImage"
              x:Class="ResizeImage.App">
     <Application.DataTemplates>
-        <local:ViewLocator/>
+        <!--<local:ViewLocator/>-->
     </Application.DataTemplates>
 
     <Application.Styles>

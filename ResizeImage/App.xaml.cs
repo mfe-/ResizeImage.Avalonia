@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using Get.the.solution.Image.Contract;
 using Get.the.solution.Image.Manipulation.Contract;
 using Get.the.solution.Image.Manipulation.ResizeService;
+using Get.the.solution.Image.Manipulation.ServiceBase;
 using Get.the.solution.Image.Manipulation.ViewModel;
 using ResizeImage.Service;
 using ResizeImage.Views;
@@ -18,7 +19,7 @@ namespace ResizeImage
         private ApplicationService _applicationService;
         private ILoggerService _loggerService;
         private UnityContainer _unityContainer;
-        public Window Window { get; protected set; }
+        public Window Window { get; set; }
         public IUnityContainer Container => _unityContainer;
         public override void Initialize()
         {
@@ -44,7 +45,7 @@ namespace ResizeImage
                     ,{ typeof(SettingsPageViewModel),typeof(SettingsPage) }
                 };
 
-                _unityContainer.RegisterInstance<ILoggerService>(_loggerService);
+                _unityContainer.RegisterInstance(_loggerService);
                 _unityContainer.RegisterInstance<IApplicationService>(_applicationService);
 
                 NavigationService navigationService = new NavigationService(Container, this, pageDictionary);

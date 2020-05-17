@@ -1,6 +1,7 @@
 ﻿using System;
 using Avalonia;
 using Avalonia.Logging.Serilog;
+using Get.the.solution.Image.Manipulation.Contract;
 using Get.the.solution.Image.Manipulation.ViewModel;
 using ResizeImage.Views;
 using Unity;
@@ -27,12 +28,10 @@ namespace ResizeImage
         {
             App app1 = (App)app;
             var vm = app1.Container.Resolve<MainPageViewModel>();
-            var window = new MainWindow
-            {
-                DataContext = vm,
-            };
-            
-            app1.Run(window);
+            app1.Window = new MainWindow(app1.Container);
+            app1.Window.DataContext = vm;
+            app1.Run(app1.Window);
+
         }
     }
 }

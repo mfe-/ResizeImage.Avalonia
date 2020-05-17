@@ -10,9 +10,7 @@
         Icon="/Assets/favicon.ico"
         Title="ResizeImage">
 
-  <Design.DataContext>
-    <vm:MainWindowViewModel/>
-  </Design.DataContext>
+
   <Window.DataTemplates>
     <DataTemplate DataType="{x:Type contract:MenuItem}">
       <Button Content="{Binding Name}" Command="{Binding $parent.NavigateToCommand}"

@@ -26,7 +26,7 @@ namespace ResizeImage.Service
 
         public void Exit()
         {
-            throw new NotImplementedException();
+            Environment.Exit(0);
         }
 
         public string GetAppVersion()
