@@ -1,14 +1,29 @@
-﻿using Get.the.solution.Image.Manipulation.Contract;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+using Get.the.solution.Image.Manipulation.Contract;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace ResizeImage.Service
+namespace ResizeImage.Views
 {
-    public class ProgressBarDialogService : IProgressBarDialogService
+    public class ProgressBarDialogWindow : Window, IProgressBarDialogService
     {
+        public ProgressBarDialogWindow()
+        {
+            this.InitializeComponent();
+#if DEBUG
+            this.AttachDevTools();
+#endif
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
+
         private String _CurrentItem;
         public String CurrentItem
         {
@@ -57,20 +72,21 @@ namespace ResizeImage.Service
 
         public IProgressBarDialogService ProgressBarDialogFactory()
         {
-            return new ProgressBarDialogService();
+            return new ProgressBarDialogWindow();
         }
 
         public Task StartAsync(int amountItems)
         {
             AmountItems = amountItems;
-            //todo show window
-            throw new NotImplementedException();
+            this.Show();
+            return Task.CompletedTask;
+            //throw new NotImplementedException();
         }
 
         public void Stop()
         {
-            //todo hide window
-            throw new NotImplementedException();
+            Close();
         }
-    }
+    
+}
 }

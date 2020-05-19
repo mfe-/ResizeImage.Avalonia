@@ -58,7 +58,7 @@ namespace ResizeImage
                 _unityContainer.RegisterSingleton<IDragDropService, DragDropService>();
                 _unityContainer.RegisterSingleton<IShareService, ShareService>();
                 _unityContainer.RegisterSingleton<IPageDialogService, PageDialogService>();
-                _unityContainer.RegisterSingleton<IProgressBarDialogService, ProgressBarDialogService>();
+                _unityContainer.RegisterSingleton<IProgressBarDialogService, ProgressBarDialogWindow>();
                 _unityContainer.RegisterSingleton<IFileSystemPermissionDialogService, FileSystemPermissionDialogService>();
                 TimeSpan timeSpan = TimeSpan.MinValue;
                 _unityContainer.RegisterInstance<TimeSpan>(timeSpan);

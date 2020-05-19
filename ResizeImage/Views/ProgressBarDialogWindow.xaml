@@ -1,0 +1,24 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="ResizeImage.Views.ProgressBarDialogWindow"
+        Title="ProgressBarDialogWindow">
+    Welcome to Avalonia!
+
+    <!--<ContentDialog.Content>
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="{x:Bind CurrentItem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            <ProgressBar IsIndeterminate="False" 
+                         Maximum="{x:Bind AmountItems,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                         Value="{x:Bind ProcessedItems,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="{x:Bind ItemState,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+            <ad:AdControl ApplicationId="9p87m9tknkvl" AdUnitId="1100024352"
+                HorizontalAlignment="Center" 
+                Width="320"
+                Height="50" />
+        </StackPanel>
+    </ContentDialog.Content>-->
+
+</Window>
